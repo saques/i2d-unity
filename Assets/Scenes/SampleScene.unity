@@ -191,10 +191,9 @@ GameObject:
   m_Component:
   - component: {fileID: 198589052}
   - component: {fileID: 198589051}
-  - component: {fileID: 198589053}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -232,23 +231,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &198589053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 198589050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45bcfa51969c1704aad4a24516ff7d63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StartPosition: {fileID: 1902025769}
-  TargetPosition: {fileID: 0}
-  hitLayers:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!1 &252123899
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,36 +346,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!1 &846875421
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 846875423}
-  m_Layer: 0
-  m_Name: Seek
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &846875423
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 846875421}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &902134064
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,9 +725,10 @@ GameObject:
   - component: {fileID: 1902025766}
   - component: {fileID: 1902025770}
   - component: {fileID: 1902025771}
+  - component: {fileID: 1902025773}
   - component: {fileID: 1902025772}
   m_Layer: 0
-  m_Name: StartPosition
+  m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -865,10 +818,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f171edf8d20b86e49830219e23016b80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  i: -1
   v: 2.5
   threshold: 0.5
-  currentBehaviour: {fileID: 1902025771}
+  currentBehaviour: {fileID: 1902025773}
 --- !u!114 &1902025771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -903,3 +855,20 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1902025773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1902025765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5575aa01683af104fae32badc4934abf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  i: 0
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  threshold: 1

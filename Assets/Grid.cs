@@ -12,8 +12,6 @@ public class Grid : MonoBehaviour
     public float fDistanceBetweenNodes;//The distance that the squares will spawn from eachother.
 
     Node[,] NodeArray;//The array of nodes that the A Star algorithm uses.
-    public List<Node> FinalPath;//The completed path that the red line will be drawn along
-
 
     float fNodeDiameter;//Twice the amount of the radius (Set in the start function)
     int iGridSizeX, iGridSizeY;//Size of the Grid in Array units.
@@ -118,38 +116,4 @@ public class Grid : MonoBehaviour
     }
 
 
-    //Function that draws the wireframe
-    private void OnDrawGizmos()
-    {
-
-        Gizmos.DrawWireCube(transform.position, new Vector3(vGridWorldSize.x, 1, vGridWorldSize.y));//Draw a wire cube with the given dimensions from the Unity inspector
-
-        if (NodeArray != null)//If the grid is not empty
-        {
-            foreach (Node n in NodeArray)//Loop through every node in the grid
-            {
-                if (n.bIsWall)//If the current node is a wall node
-                {
-                    Gizmos.color = Color.white;//Set the color of the node
-                }
-                else
-                {
-                    Gizmos.color = Color.yellow;//Set the color of the node
-                }
-
-
-                if (FinalPath != null)//If the final path is not empty
-                {
-                    if (FinalPath.Contains(n))//If the current node is in the final path
-                    {
-                        Gizmos.color = Color.red;//Set the color of that node
-                    }
-
-                }
-
-
-                Gizmos.DrawCube(n.vPosition, Vector3.one * (fNodeDiameter - fDistanceBetweenNodes));//Draw the node at the position of the node.
-            }
-        }
-    }
 }
