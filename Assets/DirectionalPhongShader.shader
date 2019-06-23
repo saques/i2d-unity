@@ -1,4 +1,6 @@
-﻿Shader "Unlit/DirectionalPhongShader"
+﻿// Upgrade NOTE: replaced '_LightMatrix0' with 'unity_WorldToLight'
+
+Shader "Unlit/DirectionalPhongShader"
 {
     Properties
     {
@@ -35,9 +37,10 @@
             struct v2f
             {
                 float2 uv : TEXCOORD0;
-                float4 vertex : SV_POSITION;
-				float3 vertexWorld :TEXCOORD1;
+                float4 vertex : POSITION;
+				float3 vertexWorld :TEXCOORD3;
                 float3 normal : NORMAL;
+                float4 shadowCoords: TEXCOORD4;
             };
 
             sampler2D _MainTex;
@@ -45,7 +48,7 @@
             float4 _AmbientColor;
             float _SpecularExponent;
             sampler2D _ShadowMap;
-            uniform float4x4 unity_WorldToLight;
+            float4x4 _lightProjectionMatrix;
 
             v2f vert (appdata v)
             {
@@ -53,10 +56,17 @@
                 o.vertex = UnityObjectToClipPos(v.vertex);
 				o.vertexWorld = mul(unity_ObjectToWorld, v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                o.shadowCoords = mul(_lightProjectionMatrix, float4(o.vertexWorld, 1));
                 o.normal = v.normal;
                 return o;
             }
 
+            float2 poissonDisk[4] = {
+                float2( -0.94201624, -0.39906216 ),
+                float2( 0.94558609, -0.76890725 ),
+                float2( -0.094184101, -0.92938870 ),
+                float2( 0.34495938, 0.29387760 )
+            };
             fixed4 frag (v2f i) : SV_Target
             {
                 // PHONG
@@ -71,12 +81,16 @@
                 float4 spec = pow(max(dot(r, v), 0), _SpecularExponent) * col;
 
                 // SHADOW MAPPING
-                float4 shadowPos = mul(unity_WorldToLight, float4(worldPos, 1));
-				float2 shadowUv = shadowPos.xy;
-                if (tex2D(_ShadowMap, shadowUv).r <= (shadowPos.z / shadowPos.w) + 0.02) {
-                    return 0;
+                float visibility = 1;
+                float bias = clamp(0.005 * tan(acos(clamp(nDotL, 0, 1))), 0, 0.01);
+                // float bias = 0.005;
+                for (int c = 0; c < 4; c++) {
+                    float shadowProjectionDepth = 1 - tex2Dproj(_ShadowMap, float4(i.shadowCoords.xy + poissonDisk[c] / 700.0, i.shadowCoords.zw)).r;
+                    if (shadowProjectionDepth < i.shadowCoords.z - bias) {
+                        visibility -= 0.2;
+                    }
                 }
-                return (diff + spec + _AmbientColor);
+                return visibility *  (diff + spec + _AmbientColor);
             }
             ENDCG
         }

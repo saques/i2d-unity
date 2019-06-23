@@ -38,7 +38,7 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
-				return (i.vertex.z / i.vertex.w) * 0.5 + 0.5;
+				return i.vertex.z / i.vertex.w;
             }
             ENDCG
         }
