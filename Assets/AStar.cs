@@ -7,8 +7,8 @@ public class AStar : ISteeringBehaviour
     Grid GridReference;//For referencing the grid class
     public int i;
     public LayerMask hitLayers;
-    public float threshold;
     List<Node> FinalPath;
+
 
     private void Start()
     {
@@ -22,35 +22,22 @@ public class AStar : ISteeringBehaviour
 
     private void Update()//Every frame
     {
-        if (Input.GetMouseButtonDown(0))//If the player has left clicked
+        if (positionToGo != null)//If the player has left clicked
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            // create a plane at 0,0,0 whose normal points to +Y:
-            Plane hPlane = new Plane(Vector3.up, Vector3.zero);
-            // Plane.Raycast stores the distance from ray.origin to the hit point in this variable:
-            float distance = 0;
-
-            RaycastHit hit;
-
-            // if the ray hits the plane...
-            if (hPlane.Raycast(ray, out distance) && !Physics.Raycast(ray, out hit, Mathf.Infinity, hitLayers))
-            {
-                // get the hit point:
-                //this.transform.position = ray.GetPoint(distance);
-
-                FindPath(transform.position, ray.GetPoint(distance), hitLayers);//Find a path to the goal
-            }
-
-
+            FindPath(transform.position, positionToGo.Value, hitLayers);//Find a path to the goal
+            positionToGo = null;
         }
     }
 
 
     public override Vector3 NextDirection()
     {
-        if (i != -1)
+        if (FinalPath != null && FinalPath.Count <= i)
         {
-
+            i = -1;
+        }
+        if (i != -1 )
+        {
             float deltaT = Time.deltaTime;
 
             Vector3 target = FinalPath[i].vPosition;
@@ -76,7 +63,7 @@ public class AStar : ISteeringBehaviour
     }
 
 
-    void FindPath(Vector3 a_StartPos, Vector3 a_TargetPos, LayerMask hitLayers)
+    public void FindPath(Vector3 a_StartPos, Vector3 a_TargetPos, LayerMask hitLayers)
     {
         Node StartNode = GridReference.NodeFromWorldPoint(a_StartPos);//Gets the node closest to the starting position
         Node TargetNode = GridReference.NodeFromWorldPoint(a_TargetPos);//Gets the node closest to the target position

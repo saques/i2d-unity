@@ -7,6 +7,8 @@ public class Seek : ISteeringBehaviour
     public Vector3 target;
     public LayerMask hitLayers;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,30 +18,12 @@ public class Seek : ISteeringBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (Input.GetMouseButtonDown(0))//If the player has left clicked
+        if (positionToGo != null)//If the player has left clicked
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            // create a plane at 0,0,0 whose normal points to +Y:
-            Plane hPlane = new Plane(Vector3.up, Vector3.zero);
-            // Plane.Raycast stores the distance from ray.origin to the hit point in this variable:
-            float distance = 0;
-
-            RaycastHit hit;
-
-            // if the ray hits the plane...
-            if (hPlane.Raycast(ray, out distance) && !Physics.Raycast(ray, out hit, Mathf.Infinity, hitLayers))
-            {
-                // get the hit point:
-                //this.transform.position = ray.GetPoint(distance);
-
-                target = ray.GetPoint(distance);
-            }
-
-
+            target = positionToGo.Value;
+            target.y = transform.position.y;
+            positionToGo = null;
         }
-
-
     }
 
     public override Vector3 NextDirection()
