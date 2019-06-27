@@ -73,7 +73,7 @@ public class CharacterBehaviour : MonoBehaviour
         {
             closestEnemy.GetComponent<CharacterBehaviour>().life -= damage;
         }
-        if (targetObject != null && Vector3.Distance(targetObject.transform.position, transform.position) < currentBehaviour.threshold && state == "getLife" )
+        if (targetObject != null && Vector3.Distance(targetObject.transform.position, transform.position) < threshold && state == "getLife" )
         {
             GetComponent<CharacterBehaviour>().life = GetComponent<CharacterBehaviour>().maxLife;
             foreach (GameObject soldier in enemies)

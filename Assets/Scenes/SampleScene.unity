@@ -217,7 +217,7 @@ MonoBehaviour:
     m_Bits: 512
   vGridWorldSize: {x: 10, y: 10}
   fNodeRadius: 0.3
-  fDistanceBetweenNodes: 0
+  fDistanceBetweenNodes: 0.1
 --- !u!4 &198589052
 Transform:
   m_ObjectHideFlags: 0
@@ -252,8 +252,8 @@ MonoBehaviour:
   hitLayers:
     serializedVersion: 2
     m_Bits: 512
-  maxSoldiers: 20
-  maxLifes: 10
+  maxSoldiers: 10
+  maxLifes: 15
 --- !u!1 &252123899
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,11 +380,11 @@ GameObject:
   - component: {fileID: 726844694}
   - component: {fileID: 726844693}
   - component: {fileID: 726844692}
-  - component: {fileID: 726844691}
   - component: {fileID: 726844690}
   - component: {fileID: 726844689}
   - component: {fileID: 726844688}
   - component: {fileID: 726844687}
+  - component: {fileID: 726844691}
   m_Layer: 0
   m_Name: BlueSoldier
   m_TagString: Untagged
@@ -457,7 +457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   v: 4
-  threshold: 0.8
+  threshold: 1.5
   currentBehaviour: {fileID: 726844689}
   enemies: []
   us: []
@@ -471,8 +471,8 @@ MonoBehaviour:
   hitLayers:
     serializedVersion: 2
     m_Bits: 512
---- !u!65 &726844691
-BoxCollider:
+--- !u!136 &726844691
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -481,8 +481,9 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &726844692
 MeshRenderer:
@@ -528,7 +529,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 726844686}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &726844694
 Transform:
   m_ObjectHideFlags: 0
@@ -1041,11 +1042,11 @@ GameObject:
   - component: {fileID: 1902025769}
   - component: {fileID: 1902025768}
   - component: {fileID: 1902025767}
-  - component: {fileID: 1902025766}
   - component: {fileID: 1902025770}
   - component: {fileID: 1902025771}
   - component: {fileID: 1902025773}
   - component: {fileID: 1902025772}
+  - component: {fileID: 1902025766}
   m_Layer: 0
   m_Name: RedSoldier
   m_TagString: Untagged
@@ -1053,8 +1054,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!65 &1902025766
-BoxCollider:
+--- !u!136 &1902025766
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1063,8 +1064,9 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1902025767
 MeshRenderer:
@@ -1110,7 +1112,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1902025765}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1902025769
 Transform:
   m_ObjectHideFlags: 0
@@ -1137,9 +1139,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f171edf8d20b86e49830219e23016b80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  v: 2
-  threshold: 0.8
-  currentBehaviour: {fileID: 1902025771}
+  v: 4
+  threshold: 1
+  currentBehaviour: {fileID: 1902025773}
   enemies: []
   us: []
   lifes: []
