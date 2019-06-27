@@ -21,9 +21,11 @@ public class CharacterBehaviour : MonoBehaviour
     public float lifePercentage;
     private GameObject targetObject;
     private GameObject closestEnemy;
-    private string state;
-    float deltaX;
-    float deltaZ;
+    public string state;
+    public LayerMask hitLayers;
+    int times;
+    Vector3 lastPosition;
+
 
 
     private void Start()
@@ -46,26 +48,28 @@ public class CharacterBehaviour : MonoBehaviour
             }
             Destroy(gameObject);
         }
+
         if (life < (int)(lifePercentage * maxLife))
         {
             state = "getLife";
             targetObject = GetClosest(lifes);
+            lastPosition = transform.position;
+            currentBehaviour.positionToGo = targetObject.transform.position;
         }
-        else
+        else if (life >= (int)(lifePercentage * maxLife) )
         {
-            targetObject = GetClosest(enemies);
             state = "attack";
+            targetObject = GetClosest(enemies);
         }
         closestEnemy = GetClosest(enemies);
-
-        if (targetObject != null && (lastPositionToGo == null || lastPositionToGo.Value != targetObject.transform.position))
+        if (targetObject != null && state == "attack" &&(lastPositionToGo == null || lastPositionToGo.Value != targetObject.transform.position))
         {
             currentBehaviour.positionToGo = targetObject.transform.position;
             lastPositionToGo = targetObject.transform.position;
 
         }
 
-        if (closestEnemy != null && Vector3.Distance(closestEnemy.transform.position, transform.position) < currentBehaviour.threshold)
+        if (closestEnemy != null && Vector3.Distance(closestEnemy.transform.position, transform.position) < threshold)
         {
             closestEnemy.GetComponent<CharacterBehaviour>().life -= damage;
         }
@@ -84,7 +88,9 @@ public class CharacterBehaviour : MonoBehaviour
         }
         if (targetObject != null)
         {
-            controller.Move(currentBehaviour.NextDirection() * Time.deltaTime * v);
+            Vector3 nextDir = currentBehaviour.NextDirection();
+            controller.Move(nextDir * Time.deltaTime * v);
+            transform.position = new Vector3(transform.position.x, 0.25f, transform.position.z);
         }
     }
 

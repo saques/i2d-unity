@@ -34,7 +34,7 @@ public class SpawnChecker : MonoBehaviour
         {
             timer = 0.0f;
             var size = plane.GetComponent<Collider>().bounds.size;
-            var auxObject = Instantiate(life, new Vector3(Random.Range(-size.x/3, size.x/3), 1.18f, Random.Range(-size.z/3, size.z/3)), Quaternion.identity);
+            var auxObject = Instantiate(life, new Vector3(Random.Range(-size.x/3, size.x/3), 0.25f, Random.Range(-size.z/3, size.z/3)), Quaternion.identity);
             auxObject.SetActive(true);
             lifes.Add(auxObject);
             foreach (GameObject soldier in redSoldiers)
@@ -47,7 +47,7 @@ public class SpawnChecker : MonoBehaviour
             }
         }
         if (Input.GetMouseButtonDown(0))//If the player has left clicked
-        {
+        {         
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             // create a plane at 0,0,0 whose normal points to +Y:
             Plane hPlane = new Plane(Vector3.up, Vector3.zero);
@@ -71,9 +71,9 @@ public class SpawnChecker : MonoBehaviour
                     auxObject.SetActive(true);
                     redSoldiers.Add(auxObject);
                     auxObject.GetComponent<CharacterBehaviour>().life = 500;
-                    auxObject.GetComponent<CharacterBehaviour>().maxLife = 200;
+                    auxObject.GetComponent<CharacterBehaviour>().maxLife = 500;
                     auxObject.GetComponent<CharacterBehaviour>().lifePercentage = 0.5f;
-                    auxObject.GetComponent<CharacterBehaviour>().damage =1;
+                    auxObject.GetComponent<CharacterBehaviour>().damage =2;
                     auxObject.GetComponent<CharacterBehaviour>().enemies = blueSoldiers;
                     auxObject.GetComponent<CharacterBehaviour>().lifes = lifes;
                     foreach (GameObject soldier in blueSoldiers)
@@ -90,7 +90,7 @@ public class SpawnChecker : MonoBehaviour
                     auxObject.SetActive(true);
                     blueSoldiers.Add(auxObject);
                     auxObject.GetComponent<CharacterBehaviour>().life = 500;
-                    auxObject.GetComponent<CharacterBehaviour>().maxLife = 200;
+                    auxObject.GetComponent<CharacterBehaviour>().maxLife = 500;
                     auxObject.GetComponent<CharacterBehaviour>().lifePercentage = 0.5f;
                     auxObject.GetComponent<CharacterBehaviour>().damage = 1;
                     auxObject.GetComponent<CharacterBehaviour>().attackRadius = 2;

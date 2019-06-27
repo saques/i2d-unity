@@ -21,13 +21,14 @@ public class Seek : ISteeringBehaviour
         if (positionToGo != null)//If the player has left clicked
         {
             target = positionToGo.Value;
-            target.y = transform.position.y;
+            target.y = 0.25f;
             positionToGo = null;
         }
     }
 
     public override Vector3 NextDirection()
     {
+        target.y = 0.25f;
         return Vector3.Normalize(target - transform.position);
     }
 }

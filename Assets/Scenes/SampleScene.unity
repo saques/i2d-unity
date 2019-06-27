@@ -253,7 +253,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   maxSoldiers: 20
-  maxLifes: 4
+  maxLifes: 10
 --- !u!1 &252123899
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,7 +422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5575aa01683af104fae32badc4934abf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  threshold: 1
+  threshold: 0.2
   i: 0
   hitLayers:
     serializedVersion: 2
@@ -456,8 +456,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f171edf8d20b86e49830219e23016b80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  v: 2.5
-  threshold: 0.2
+  v: 4
+  threshold: 0.8
   currentBehaviour: {fileID: 726844689}
   enemies: []
   us: []
@@ -467,6 +467,10 @@ MonoBehaviour:
   life: 0
   maxLife: 0
   lifePercentage: 0
+  state: 
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!65 &726844691
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1134,7 +1138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   v: 2
-  threshold: 0.2
+  threshold: 0.8
   currentBehaviour: {fileID: 1902025771}
   enemies: []
   us: []
@@ -1144,6 +1148,10 @@ MonoBehaviour:
   life: 0
   maxLife: 0
   lifePercentage: 0
+  state: 
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!114 &1902025771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1191,7 +1199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5575aa01683af104fae32badc4934abf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  threshold: 1
+  threshold: 0.2
   i: 0
   hitLayers:
     serializedVersion: 2

@@ -26,6 +26,7 @@ public class AStar : ISteeringBehaviour
         {
             FindPath(transform.position, positionToGo.Value, hitLayers);//Find a path to the goal
             positionToGo = null;
+            Debug.Log(FinalPath.Count);
         }
     }
 
@@ -54,7 +55,7 @@ public class AStar : ISteeringBehaviour
                 }
 
             }
-
+            target.y = transform.position.y;
             return Vector3.Normalize(target - transform.position);
 
         }
